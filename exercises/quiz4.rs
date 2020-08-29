@@ -3,13 +3,9 @@
 // - Modules
 // - Macros
 
+// Write a macro that passes the quiz! No hints this time, you can do it!
 
-
-macro_rules! my_macro {
-    ($message:expr)=>{
-        format!("{} {}","Hello",$message)
-    }
-}
+// I AM NOT DONE
 
 #[cfg(test)]
 mod tests {
@@ -24,5 +20,4 @@ mod tests {
     fn test_my_macro_goodbye() {
         assert_eq!(my_macro!("goodbye!"), "Hello goodbye!");
     }
-    
 }

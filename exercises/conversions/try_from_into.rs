@@ -2,7 +2,7 @@
 // Basically, this is the same as From. The main difference is that this should return a Result type
 // instead of the target type itself.
 // You can read more about it at https://doc.rust-lang.org/std/convert/trait.TryFrom.html
-use std::convert::{TryInto, TryFrom};
+use std::convert::{TryFrom, TryInto};
 
 #[derive(Debug)]
 struct Color {
@@ -125,6 +125,12 @@ mod tests {
     #[should_panic]
     fn test_slice_excess_length() {
         let v = vec![0, 0, 0, 0];
+        let _ = Color::try_from(&v[..]).unwrap();
+    }
+    #[test]
+    #[should_panic]
+    fn test_slice_insufficient_length() {
+        let v = vec![0, 0];
         let _ = Color::try_from(&v[..]).unwrap();
     }
 }
