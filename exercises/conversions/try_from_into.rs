@@ -2,7 +2,7 @@
 // Basically, this is the same as From. The main difference is that this should return a Result type
 // instead of the target type itself.
 // You can read more about it at https://doc.rust-lang.org/std/convert/trait.TryFrom.html
-use std::convert::{TryInto, TryFrom};
+use std::convert::{TryFrom, TryInto};
 
 #[derive(Debug)]
 struct Color {
@@ -10,8 +10,6 @@ struct Color {
     green: u8,
     blue: u8,
 }
-
-// I AM NOT DONE
 
 // Your task is to complete this implementation
 // and return an Ok result of inner type Color.
@@ -26,12 +24,16 @@ struct Color {
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = String;
     fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
-        if (tuple.0 <= 255 && tuple.1 <= 255 &&tuple.2 <= 255) && (tuple.0 >= 0 && tuple.1 >= 0 &&tuple.2 >= 0)
+        if (tuple.0 <= 255 && tuple.1 <= 255 && tuple.2 <= 255)
+            && (tuple.0 >= 0 && tuple.1 >= 0 && tuple.2 >= 0)
         {
-            return Ok(Color{red:tuple.0,green:tuple.1,blue:tuple.2})
-        }
-        else{
-            return Err("Error")
+            return Ok(Color {
+                red: tuple.0 as u8,
+                green: tuple.1 as u8,
+                blue: tuple.2 as u8,
+            });
+        } else {
+            return Err("Error".to_string());
         }
     }
 }
@@ -40,12 +42,16 @@ impl TryFrom<(i16, i16, i16)> for Color {
 impl TryFrom<[i16; 3]> for Color {
     type Error = String;
     fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
-        if(arr[0] <= 255 arr[1] <= 255 arr[2] <= 255 ) && (arr[0] >= 0 arr[1] >= 0 arr[2] >= 0 )
+        if (arr[0] <= 255 && arr[1] <= 255 && arr[2] <= 255)
+            && (arr[0] >= 0 && arr[1] >= 0 && arr[2] >= 0)
         {
-            return Ok(Color{red:arr[0],green:arr[1],blue:arr[2]})
-        }
-        else{
-            return Err("Error")
+            return Ok(Color {
+                red: arr[0] as u8,
+                green: arr[1] as u8,
+                blue: arr[2] as u8,
+            });
+        } else {
+            return Err("Error".to_string());
         }
     }
 }
@@ -54,7 +60,21 @@ impl TryFrom<[i16; 3]> for Color {
 impl TryFrom<&[i16]> for Color {
     type Error = String;
     fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
-        
+        if slice.len() <= 3 {
+            if (slice[0] <= 255 && slice[1] <= 255 && slice[2] <= 255)
+                && (slice[0] >= 0 && slice[1] >= 0 && slice[2] >= 0)
+            {
+                return Ok(Color {
+                    red: slice[0] as u8,
+                    green: slice[1] as u8,
+                    blue: slice[2] as u8,
+                });
+            } else {
+                return Err("Error".to_string());
+            }
+        } else {
+            return Err(String::from("Error"));
+        }
     }
 }
 
